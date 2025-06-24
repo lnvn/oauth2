@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"net/url"
 	"os"
 )
 
@@ -14,6 +15,8 @@ var (
 	clientID     = flag.String("client-id", "", "client id")
 	clientSecret = flag.String("client-secret", "", "client secret")
 	cookieSecret = flag.String("cookie-secret", "", "cookie secret")
+	redirectUrl  = flag.String("redirect-url", "", "the OAuth Redirect URL")
+	upstreams    = StringArray{}
 )
 
 func main() {
@@ -42,6 +45,19 @@ func main() {
 	if *cookieSecret == "" {
 		log.Fatal("--cookie-secret is missing")
 	}
+
+	var upstreamUrls []*url.URL
+	for _, u := range upstreams {
+		upstreamUrl, err := url.Parse(u)
+		if err != nil {
+			log.Fatalf("error parsing --upstream %s", err.Error())
+		}
+		upstreamUrls = append(upstreamUrls, upstreamUrl)
+	}
+	// redirectUrl, err := url.Parse(*redirectUrl)
+	// if err != nil {
+	// 	log.Fatalf("error parsing --redirect-url %s", err.Error())
+	// }
 
 	fmt.Printf("client-id: %s\n", *clientID)
 	fmt.Printf("client-secret: %s\n", *clientSecret)
