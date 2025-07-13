@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 type Character struct {
-	Name string
+	Name   string
 	Health int
 }
 
@@ -19,6 +19,7 @@ func (c *Character) takeDamage(amount int) {
 func (c *Character) displayStatus() {
 	fmt.Printf("Status:\n\tName: %s\n\tHealth: %d HP\n", c.Name, c.Health)
 }
+
 func main() {
 	player := Character{Name: "Long", Health: 100}
 	fmt.Println(" --- Game Start ---")
@@ -33,7 +34,7 @@ func main() {
 	fmt.Println(" --- Giant Enemy ---")
 	player.takeDamage(40)
 	player.displayStatus()
-	
+
 	fmt.Print("\n")
 	fmt.Println(" --- K/O ---")
 	player.takeDamage(80)
